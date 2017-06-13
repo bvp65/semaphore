@@ -9,21 +9,22 @@ public class Main {
         Light light = new Light();
 
         System.out.println("Укажите количество минут или 0 для выхода из программы");
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        int time = 1;
-        do {
-            try {
-                time = Integer.parseInt(in.readLine());
-                if (time < 0) {
-                    System.out.println("Укажите положительное число");
-                } else if (time != 0) {
-                    System.out.println("На " + time + " минуте горит " + light.getColor(time));
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
+            int time = 1;
+            do {
+                try {
+                    time = Integer.parseInt(in.readLine());
+                    if (time < 0) {
+                        System.out.println("Укажите положительное число");
+                    } else if (time != 0) {
+                        System.out.println("На " + time + " минуте горит " + light.getColor(time));
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Неверное число");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Неверное число");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } while (time != 0);
+            } while (time != 0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
